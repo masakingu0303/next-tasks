@@ -1,60 +1,69 @@
 # CLAUDE.md
 
-このファイルは、このリポジトリでコードを扱う際のClaude Code (claude.ai/code) への指針を提供します。
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## プロジェクト構造
+## Project Structure
 
-これは App Router アーキテクチャを使用したTypeScript対応のNext.js 15プロジェクトです。メインのアプリケーションコードは `my-app/` にあります。
+This is a Next.js 15 task management application with TypeScript using the App Router architecture. The main application code is located in `my-app/`.
 
-### 主要ディレクトリ
-- `my-app/src/app/` - Next.js App Router のページとレイアウト
-- `my-app/src/app/(main)/` - サイドバーレイアウトを持つメインアプリケーションのルートグループ
-- `my-app/public/` - 静的アセット（SVGアイコン）
+### Key Directories
+- `my-app/src/app/` - Next.js App Router pages and layouts
+- `my-app/src/app/(main)/` - Main application route group with sidebar layout
+- `my-app/src/components/SideMenu/` - Sidebar navigation components
+- `my-app/public/` - Static assets (SVG icons)
 
-### アーキテクチャの注意点
-- ルートグループを使用したApp Routerを採用：`(main)` にはサイドバーレイアウトを持つページが含まれる
-- ルートレイアウト（`src/app/layout.tsx`）でフォント（Geist Sans, Geist Mono）とグローバルメタデータを設定
-- メインレイアウト（`src/app/(main)/layout.tsx`）でflexレイアウトを使用したサイドバーレイアウトを実装
-- TypeScriptパスマッピング：`@/*` は `./src/*` にマップされる
+### Architecture Notes
+- Uses App Router with route groups: `(main)` contains pages with sidebar layout
+- Root layout (`src/app/layout.tsx`) sets up fonts (Geist Sans, Geist Mono) and global metadata
+- Main layout (`src/app/(main)/layout.tsx`) implements a sidebar layout with flex layout using SideMenu component
+- TypeScript path mapping: `@/*` maps to `./src/*`
 
-## 開発コマンド
+### Component Structure
+- **SideMenu** (`src/components/SideMenu/SideMenu.tsx`) - Main sidebar container with branding
+- **NavList** (`src/components/SideMenu/NavList/NavList.tsx`) - Navigation list component managing task categories
+- **NavItem** (`src/components/SideMenu/NavList/NavItem/NavItem.tsx`) - Individual navigation item with active state styling
+- Navigation uses react-icons (FontAwesome) for iconography
 
-すべてのコマンドは `my-app/` ディレクトリから実行してください：
+## Development Commands
+
+All commands should be run from the `my-app/` directory:
 
 ```bash
-# Turbopackを使用した開発サーバー
+# Development server with Turbopack
 npm run dev
 
-# Turbopackを使用したプロダクションビルド
+# Production build with Turbopack
 npm run build
 
-# プロダクションサーバーの開始
+# Start production server
 npm run start
 
-# ESLintによるコードリント
+# Lint code with ESLint
 npm run lint
 ```
 
-## 技術スタック
+## Tech Stack
 
-- **フレームワーク**: Next.js 15.5.3 with App Router
-- **ランタイム**: React 19.1.0
-- **言語**: TypeScript 5
-- **スタイリング**: Tailwind CSS 4 with PostCSS
-- **バンドラー**: Turbopack（開発・ビルド時に有効）
-- **リント**: ESLint with Next.js config
+- **Framework**: Next.js 15.5.3 with App Router
+- **Runtime**: React 19.1.0
+- **Language**: TypeScript 5
+- **Styling**: Tailwind CSS 4 with PostCSS
+- **Icons**: react-icons (FontAwesome)
+- **Bundler**: Turbopack (enabled for dev and build)
+- **Linting**: ESLint with Next.js config
 
-## 設定ファイル
+## Configuration Files
 
-- `next.config.ts` - Next.js設定（最小セットアップ）
-- `tsconfig.json` - Next.jsプラグインを含むTypeScript設定
-- `eslint.config.mjs` - Next.jsルールを含むESLint flat config
-- `postcss.config.mjs` - Tailwind CSS用のPostCSS設定
-- `tailwindcss` - PostCSSプラグインを通じて設定
+- `next.config.ts` - Next.js configuration (minimal setup)
+- `tsconfig.json` - TypeScript configuration with Next.js plugin
+- `eslint.config.mjs` - ESLint flat config with Next.js rules
+- `postcss.config.mjs` - PostCSS configuration for Tailwind CSS
+- `tailwindcss` - Configured through PostCSS plugin
 
-## 開発に関する注意事項
+## Development Notes
 
-- プロジェクトは高速なビルドと開発のためにTurbopackを使用
-- ESLintはNext.js Core Web VitalsとTypeScriptルールで設定済み
-- Tailwind CSSはv4プラグインを通じてPostCSSでセットアップ
-- フォント最適化にはNext.js組み込みのGoogle Fontsサポートを使用
+- Project uses Turbopack for faster builds and development
+- ESLint is configured with Next.js Core Web Vitals and TypeScript rules
+- Tailwind CSS is set up through PostCSS with the v4 plugin
+- Font optimization uses Next.js built-in Google Fonts support
+- Navigation state management uses Next.js usePathname hook for active link styling
